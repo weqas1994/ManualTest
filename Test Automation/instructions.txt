@@ -1,0 +1,52 @@
+
+Attached are the Cucumber overview documents.
+
+-	Tests (scenarios) should be defined using the gherkin syntax (https://docs.cucumber.io/gherkin/reference/ ) for easy conversion into Cucumber Feature files during automation.
+-	Scenarios can reference these predefined steps which are incorporated into the framework: https://github.com/selenium-cucumber/selenium-cucumber-ruby/blob/master/doc/canned_steps.md 
+-	Each feature, scenario / scenario outline and examples block should be tagged to facilitate requirements traceability and vary the test suite between environments as needed.
+
+Below is a sample feature file in that format testing that a search returns the expected results:
+
+@ReadOnly
+Feature: Court Summons Search - Read Only
+  
+  Description: 
+    In order to find relevant Court Summons records
+    Users should be able to 
+    Search records by one or more criteria
+    Role: Read Only
+
+  Background: Navigate to the Court Summons application home page
+    Given I log in using ReadOnly_user and navigate to the application
+    Then I should see page title as "Court Summons"
+
+  @Regression @Smoke @ReadOnly @Issues:CAOMS-483
+  Scenario Outline: Search by Court Number <CourtNumber> #CAOMS-483
+    Then the Search page is displayed
+    And element having name "courtNumberSearchField" should be enabled
+    When I type "<CourtNumber>" into the Court Number search field
+    And I click on element having id "searchButton"
+    Then the search results are displayed
+    And the search results display records for Court Number "<CourtNumber>"
+    When I click the first record
+    Then the Court Number "<CourtNumber>" screen displays
+    And the detail Court Number field is "<CourtNumber>"
+
+    @COMMONdata
+    Examples: 
+      | CourtNumber |
+      | VA-99999    |
+      | VA-BBBBB    |
+
+    @DEVdata
+    Examples: 
+      | CourtNumber |
+      | VA-11111    |
+      | VA-AAAAA    |
+
+    @SATdata
+    Examples: 
+      | CourtNumber |
+      | VA-33333    |
+      | VA-22222    |
+

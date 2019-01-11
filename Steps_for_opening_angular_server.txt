@@ -1,0 +1,6 @@
+first go to home direcory in C drive
+then go into Steven directory
+then go into landingpage directory
+then go into landingpage directory (this is folder within a folder)
+then npm install
+then ng serve --open
