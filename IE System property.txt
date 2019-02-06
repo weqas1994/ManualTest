@@ -1,0 +1,2 @@
+System.setProperty("webdriver.ie.driver", "src\\test\\resources\\Driver\\IEDriverServer.exe");
+			driver=new InternetExplorerDriver();	

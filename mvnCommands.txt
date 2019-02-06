@@ -1,0 +1,6 @@
+Maven Commands
+
+mvn clean verify test
+mvn serenity:aggregate
+
+start target will open target folder
